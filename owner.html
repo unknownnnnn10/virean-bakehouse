@@ -603,19 +603,43 @@ Simpan Saja
 
 <script>
 
+
 let pendingProduct = null;
+
 
 
 let products =
 
 JSON.parse(
+
 localStorage.getItem(
 "vireanProducts"
-))
+)
+
+)
 
 ||
 
 [];
+
+
+
+
+
+function saveToStorage(){
+
+localStorage.setItem(
+
+"vireanProducts",
+
+JSON.stringify(
+products
+)
+
+);
+
+}
+
 
 
 
@@ -659,6 +683,7 @@ button
 
 
 
+
 function addProduct(){
 
 document
@@ -673,7 +698,9 @@ document
 
 
 
+
 function validateProduct(){
+
 
 let missing=[];
 
@@ -682,35 +709,36 @@ let name =
 document
 .getElementById(
 "productName"
-).value;
+).value.trim();
 
 
 let category =
 document
 .getElementById(
 "productCategory"
-).value;
+).value.trim();
 
 
 let price =
 document
 .getElementById(
 "productPrice"
-).value;
+).value.trim();
 
 
 let cost =
 document
 .getElementById(
 "productCost"
-).value;
+).value.trim();
 
 
 let stock =
 document
 .getElementById(
 "productStock"
-).value;
+).value.trim();
+
 
 
 
@@ -722,6 +750,7 @@ if(!stock) missing.push("Stok");
 
 
 
+
 if(
 !name &&
 !category &&
@@ -729,23 +758,30 @@ if(
 !cost &&
 !stock
 ){
+
 closePopup();
 return;
+
 }
 
 
 
+
 pendingProduct = {
+
 name,
 category,
 price,
 cost,
 stock
+
 };
 
 
 
+
 if(missing.length>0){
+
 
 let html="";
 
@@ -766,12 +802,14 @@ document
 html;
 
 
+
 document
 .getElementById(
 "warningPopup"
 )
 .style.display =
 "flex";
+
 
 return;
 
@@ -786,19 +824,27 @@ forceSave();
 
 
 
+
 function forceSave(){
+
 
 closeWarning();
 
 
 
-products.push({
+
+let data = {
+
 
 name:
 pendingProduct.name,
 
+
+
 category:
 pendingProduct.category,
+
+
 
 price:
 Number(
@@ -806,33 +852,68 @@ pendingProduct.price
 .replace(/\./g,'')
 )||0,
 
+
+
 cost:
 Number(
 pendingProduct.cost
 .replace(/\./g,'')
 )||0,
 
+
+
 stock:
-pendingProduct.stock
-
-});
+pendingProduct.stock,
 
 
 
-localStorage
-.setItem(
+image:
 
-"vireanProducts",
-
-JSON.stringify(
-products
+document
+.getElementById(
+"previewImage"
 )
+.src
 
+
+};
+
+
+
+
+
+if(
+
+window.editingIndex >= 0
+
+){
+
+products[
+window.editingIndex
+] = data;
+
+
+
+window.editingIndex = -1;
+
+}
+else{
+
+products.push(
+data
 );
+
+}
+
+
+
+
+saveToStorage();
 
 
 
 renderProducts();
+
 
 
 closePopup();
@@ -842,40 +923,16 @@ closePopup();
 
 
 
-function closePopup(){
-
-document
-.getElementById(
-"addProductPopup"
-)
-.style.display =
-"none";
-
-}
-
-
-
-
-function closeWarning(){
-
-document
-.getElementById(
-"warningPopup"
-)
-.style.display =
-"none";
-
-}
-
-
-
 
 function renderProducts(){
+
 
 let html="";
 
 
+
 products.forEach((item,index)=>{
+
 
 html += `
 
@@ -919,6 +976,8 @@ Delete
 });
 
 
+
+
 document
 .getElementById(
 "productList"
@@ -931,68 +990,158 @@ html;
 
 
 
+
 function deleteProduct(index){
 
 products.splice(index,1);
 
-
-localStorage
-.setItem(
-
-"vireanProducts",
-
-JSON.stringify(
-products
-)
-
-);
-
+saveToStorage();
 
 renderProducts();
 
 }
+
 
 
 
 
 function editProduct(index){
 
-let newName =
 
-prompt(
+let product =
 
-"Nama baru:",
-
-products[index].name
-
-);
+products[index];
 
 
 
-if(newName){
-
-products[index].name =
-newName;
-
-}
+window.editingIndex =
+index;
 
 
 
-localStorage
-.setItem(
 
-"vireanProducts",
 
-JSON.stringify(
-products
+document
+.getElementById(
+"previewImage"
 )
+.src =
 
+product.image ||
+
+"assets/upload.png";
+
+
+
+
+
+document
+.getElementById(
+"productName"
+)
+.value =
+
+product.name || "";
+
+
+
+
+
+document
+.getElementById(
+"productCategory"
+)
+.value =
+
+product.category || "";
+
+
+
+
+
+document
+.getElementById(
+"productPrice"
+)
+.value =
+
+product.price
+.toLocaleString(
+"id-ID"
 );
 
 
-renderProducts();
+
+
+
+document
+.getElementById(
+"productCost"
+)
+.value =
+
+product.cost
+.toLocaleString(
+"id-ID"
+);
+
+
+
+
+
+document
+.getElementById(
+"productStock"
+)
+.value =
+
+product.stock || "";
+
+
+
+
+
+document
+.getElementById(
+"addProductPopup"
+)
+.style.display =
+
+"flex";
+
 
 }
+
+
+
+
+
+function closePopup(){
+
+document
+.getElementById(
+"addProductPopup"
+)
+.style.display =
+"none";
+
+}
+
+
+
+
+
+function closeWarning(){
+
+document
+.getElementById(
+"warningPopup"
+)
+.style.display =
+"none";
+
+}
+
 
 
 
@@ -1017,6 +1166,7 @@ Number(value)
 
 
 
+
 function openImageOption(){
 
 document
@@ -1026,6 +1176,7 @@ document
 .click();
 
 }
+
 
 
 
@@ -1063,9 +1214,9 @@ reader.readAsDataURL(file);
 
 
 
+
 renderProducts();
 
 </script>
-
 </body>
 </html>
