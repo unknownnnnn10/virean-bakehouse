@@ -1,0 +1,727 @@
+@font-face{
+
+    font-family:"BrittanySignature";
+
+    src:
+    url("./fonts/BrittanySignature.ttf")
+    format("truetype");
+}
+@font-face{
+
+    font-family:"LEMONMILK-Regular";
+
+    src:
+    url("./fonts/LEMONMILK-Regular.ttf")
+    format("truetype");
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+
+body{
+
+    min-height:100vh;
+
+    background:
+    url("assets/cafe-bg.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    font-family:Arial;
+
+    position:relative;
+}
+
+
+
+
+.bg-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    rgba(255,255,255,.75);
+}
+
+
+
+
+
+.top-bar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:30px 60px;
+
+    position:relative;
+
+    z-index:3;
+}
+
+
+
+
+.logo{
+
+    width:110px;
+}
+
+
+
+
+.menu-btn{
+
+    border:none;
+
+    background:none;
+
+    font-size:42px;
+
+    cursor:pointer;
+
+    color:#4f5434;
+}
+
+
+
+
+
+.hero{
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:3;
+}
+
+
+
+
+.hero h1{
+
+    color:#4f5434;
+
+    font-size:28px;
+
+    font-family:
+    "LEMONMILK-Regular";
+}
+
+
+
+
+.hero p{
+
+    color:#4f5434;
+
+    font-size:27px;
+
+    margin-top:8px;
+
+    font-family:"BrittanySignature";
+
+    line-height:1;
+}
+
+
+
+.line{
+
+    width:72%;
+
+    height:2px;
+
+    background:#4f5434;
+
+    margin:35px auto;
+}
+
+
+
+
+
+.buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:60px;
+
+    flex-wrap:wrap;
+
+    position:relative;
+
+    z-index:3;
+}
+
+
+
+
+.main-btn{
+
+    width:470px;
+
+    height:120px;
+
+    border:none;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    background:#fef9f4;
+
+    box-shadow:
+    12px 12px 0 rgba(0,0,0,.1);
+
+    cursor:pointer;
+}
+
+
+
+
+.icon{
+
+    width:130px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+
+
+
+.icon img{
+
+    width:44px;
+}
+
+
+
+
+.dark{
+    background:#4f5434;
+}
+
+
+
+.light{
+    background:#aaaf8d;
+}
+
+
+
+
+.btn-text{
+
+    padding-left:30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:flex-start;
+}
+
+
+
+
+.btn-text h2{
+
+    font-family:
+    "LEMONMILK-Regular";
+
+    font-weight:bold;
+
+    font-size:20px;
+
+    line-height:1;
+
+    color:#4f5434;
+}
+
+
+
+
+.btn-text span{
+
+    margin-top:6px;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    color:#4f5434;
+}
+
+
+
+
+
+.menu-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+    background:
+    rgba(255,255,255,.3);
+}
+
+
+
+
+.menu-card{
+
+    width:min(100%,1100px);
+
+    background:#fef9f4;
+
+    border-radius:35px;
+
+    padding:45px;
+}
+
+
+
+
+.close-btn{
+
+    float:right;
+
+    border:none;
+
+    background:none;
+
+    font-size:35px;
+
+    cursor:pointer;
+}
+
+
+
+
+.menu-logo{
+
+    width:90px;
+
+    display:block;
+
+    margin:auto;
+
+    margin-bottom:30px;
+}
+
+
+
+
+.menu-list{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(350px,1fr));
+
+    gap:20px 40px;
+}
+
+
+
+
+.menu-item{
+
+    height:80px;
+
+    border:none;
+
+    border-bottom:
+    1px solid #afb28d;
+
+    background:none;
+
+    display:flex;
+
+    align-items:center;
+
+    cursor:pointer;
+}
+
+
+
+
+.menu-item img{
+
+    width:38px;
+
+    margin-right:25px;
+}
+
+
+
+
+.menu-item span{
+
+    flex:1;
+
+    text-align:left;
+}
+
+
+
+
+
+.admin-popup,
+.login-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:99999;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.15);
+}
+
+
+
+
+.admin-card,
+.login-card{
+
+    width:min(90%,420px);
+
+    background:#f8f5ef;
+
+    border-radius:30px;
+
+    padding:35px;
+
+    position:relative;
+
+    text-align:center;
+}
+
+
+
+
+.admin-close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    border:none;
+
+    background:none;
+
+    font-size:28px;
+
+    cursor:pointer;
+}
+
+
+
+
+.admin-card h2,
+.login-card h2{
+
+    color:#4f5434;
+
+    margin-bottom:25px;
+}
+
+
+
+
+.admin-btn,
+.login-btn,
+.back-btn{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    margin-bottom:12px;
+}
+
+
+
+
+.admin-btn,
+.login-btn{
+
+    background:#6f7553;
+
+    color:white;
+}
+
+
+
+
+.back-btn{
+
+    background:#ddd;
+}
+
+
+
+
+.login-card input{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:0 20px;
+
+    margin-bottom:15px;
+}
+
+
+
+
+.remember-box{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin:10px 0 25px 8px;
+
+    color:#4f5434;
+
+    font-size:10px;
+
+    cursor:pointer;
+}
+
+.remember-box input{
+
+    width:18px;
+
+    height:18px;
+
+    accent-color:#6f7553;
+
+    cursor:pointer;
+
+    flex:none;
+}
+
+
+
+
+@media(max-width:768px){
+
+    .buttons{
+
+        flex-direction:column;
+
+        padding:15px;
+    }
+
+    .main-btn{
+
+        width:100%;
+    }
+
+    .menu-list{
+
+        grid-template-columns:1fr;
+    }
+
+}
+.language-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999999;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.15);
+}
+
+
+
+
+.language-card{
+
+    width:min(90%,420px);
+
+    background:#f8f5ef;
+
+    border-radius:30px;
+
+    padding:35px;
+}
+
+
+
+
+.language-card h2{
+
+    margin-bottom:25px;
+
+    color:#4f5434;
+}
+
+
+
+
+.language-card label{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+    color:#4f5434;
+}
+
+
+
+
+.save-language{
+
+    margin-top:20px;
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#6f7553;
+
+    color:white;
+
+    cursor:pointer;
+}
+.forgot-password{
+
+    margin-top:5px;
+
+    color:#4f5434;
+
+    font-size:13px;
+
+    cursor:pointer;
+
+    text-decoration:underline;
+}
+
+
+
+
+.forgot-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:99999;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    rgba(0,0,0,.15);
+}
+
+
+
+
+.forgot-card{
+
+    width:min(90%,420px);
+
+    background:#f8f5ef;
+
+    border-radius:30px;
+
+    padding:35px;
+
+    text-align:center;
+}
+
+
+
+
+.forgot-card input{
+
+    width:100%;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:15px;
+
+    padding:0 20px;
+
+    margin:20px 0;
+}

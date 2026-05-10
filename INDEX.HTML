@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Virean Bake House</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<!-- admin popup -->
+<div id="adminPopup"
+     class="admin-popup">
+
+
+
+    <div class="admin-card">
+
+
+
+        <button class="admin-close"
+                onclick="closeAdmin()">
+
+            ✕
+
+        </button>
+
+
+
+
+        <h2>
+
+            Admin Login
+
+        </h2>
+
+
+
+
+        <button class="admin-btn"
+                onclick="openLogin('Cashier Login')">
+
+            Cashier Login
+
+        </button>
+
+
+
+
+        <button class="admin-btn"
+                onclick="openLogin('Owner Login')">
+
+            Owner Login
+
+        </button>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<!-- login popup -->
+<div id="loginPopup"
+     class="login-popup">
+
+
+
+    <div class="login-card">
+
+
+
+
+        <h2 id="loginTitle">
+
+            Login
+
+        </h2>
+
+
+
+
+
+        <input id="emailInput"
+               type="text"
+               placeholder="Username / Email">
+
+
+
+
+
+        <input id="passwordInput"
+               type="password"
+               placeholder="Password">
+
+
+
+
+
+        <label class="remember-box">
+
+            <input type="checkbox">
+
+            Ingat Saya
+
+        </label>
+
+
+
+
+
+        <button class="login-btn"
+                onclick="doLogin()">
+
+            Login
+
+        </button>
+
+
+
+
+
+        <button class="back-btn"
+                onclick="closeLogin()">
+
+            Kembali
+
+        </button>
+
+<p class="forgot-password"
+   onclick="openForgot()">
+
+    Lupa Password?
+
+</p>
+
+
+    </div>
+
+
+
+</div>
+
+
+    <!-- background -->
+    <div class="bg-overlay"></div>
+
+
+
+
+    <!-- top -->
+    <div class="top-bar">
+
+
+        <img src="assets/logo.png" class="logo">
+
+
+
+        <button class="menu-btn" onclick="openMenu()">
+
+            ☰
+
+        </button>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- title -->
+    <div class="hero">
+
+
+        <h1>
+
+            VIREAN BAKE HOUSE
+
+        </h1>
+
+
+
+        <p>
+
+            Bakery • Coffee • Dessert
+
+        </p>
+
+
+
+        <div class="line"></div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- dine -->
+    <div class="buttons">
+
+
+
+        <button class="main-btn">
+
+
+            <div class="icon dark">
+
+                <img src="assets/sofa.png">
+
+            </div>
+
+
+
+            <div class="btn-text">
+
+                <h2>DINE IN</h2>
+
+                <span>MAKAN DI TEMPAT</span>
+
+            </div>
+
+
+        </button>
+
+
+
+
+
+
+        <button class="main-btn">
+
+
+            <div class="icon light">
+
+                <img src="assets/bag.png">
+
+            </div>
+
+
+
+            <div class="btn-text">
+
+                <h2>TAKE AWAY</h2>
+
+                <span>BAWA</span>
+
+            </div>
+
+
+        </button>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- overlay -->
+    <div id="menuOverlay" class="menu-overlay">
+
+
+
+
+        <div class="menu-card">
+
+
+
+
+            <button class="close-btn" onclick="closeMenu()">
+
+                ✕
+
+            </button>
+
+
+
+
+            <img src="assets/logo.png" class="menu-logo">
+
+
+
+
+
+            <div class="menu-list">
+
+
+
+                <button class="menu-item">
+                    <img src="assets/cart.png">
+                    <span>Pesanan Saya</span>
+                    <div>›</div>
+                </button>
+
+
+
+                <button class="menu-item">
+                    <img src="assets/receipt.png">
+                    <span>Cetak Struk</span>
+                    <div>›</div>
+                </button>
+
+
+
+                <button class="menu-item">
+                    <img src="assets/star.png">
+                    <span>Favorit Saya</span>
+                    <div>›</div>
+                </button>
+
+
+
+                <button class="menu-item">
+                    <img src="assets/bell.png">
+                    <span>Panggil Staff</span>
+                    <div>›</div>
+                </button>
+
+
+
+               <button class="menu-item"
+        onclick="openLanguage()">
+
+    <img src="assets/language.png">
+
+    <span id="languageText">
+
+        Bahasa
+
+    </span>
+
+    <div>›</div>
+
+</button>
+
+
+
+                <button class="menu-item">
+                    <img src="assets/info.png">
+                    <span>Tentang Virean</span>
+                    <div>›</div>
+                </button>
+
+
+
+                <button class="menu-item"
+        onclick="openAdmin()">
+
+    <img src="assets/lock.png">
+
+    <span>Admin Login</span>
+
+    <div>›</div>
+
+</button>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+<!-- language popup -->
+<div id="languagePopup"
+     class="language-popup">
+
+
+
+    <div class="language-card">
+
+
+
+        <h2>
+
+            Select Language
+
+        </h2>
+
+
+
+
+
+        <label>
+
+            <input type="radio"
+                   name="lang"
+                   value="id"
+                   checked>
+
+            Indonesia
+
+        </label>
+
+
+
+
+
+        <label>
+
+            <input type="radio"
+                   name="lang"
+                   value="en">
+
+            English
+
+        </label>
+
+
+
+
+
+        <label>
+
+            <input type="radio"
+                   name="lang"
+                   value="cn">
+
+            中文
+
+        </label>
+
+
+
+
+
+        <label>
+
+            <input type="radio"
+                   name="lang"
+                   value="jp">
+
+            日本語
+
+        </label>
+
+
+
+
+
+        <label>
+
+            <input type="radio"
+                   name="lang"
+                   value="kr">
+
+            한국어
+
+        </label>
+
+
+
+
+
+        <button class="save-language"
+                onclick="saveLanguage()">
+
+            Simpan
+
+        </button>
+
+
+
+    </div>
+
+
+
+</div>
+<!-- forgot password popup -->
+<div id="forgotPopup"
+     class="forgot-popup">
+
+
+
+    <div class="forgot-card">
+
+
+
+        <h2>
+
+            Reset Password
+
+        </h2>
+
+
+
+
+
+        <input id="forgotEmail"
+               type="text"
+               placeholder="Masukkan Email">
+
+
+
+
+
+        <button class="login-btn"
+                onclick="sendPassword()">
+
+            Confirm
+
+        </button>
+
+
+
+
+
+        <button class="back-btn"
+                onclick="closeForgot()">
+
+            Kembali
+
+        </button>
+
+
+
+    </div>
+
+
+
+</div>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
