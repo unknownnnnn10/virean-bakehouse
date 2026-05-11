@@ -599,28 +599,102 @@ Simpan Saja
 
 
 
+<script type="module">
 
+
+import {
+
+initializeApp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+
+import {
+
+getFirestore,
+
+collection,
+
+addDoc,
+
+getDocs,
+
+deleteDoc,
+
+doc,
+
+updateDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyB0aJspr1MMMJCeaEAKlV3CaGNM8q6BKRU",
+
+authDomain: "virean-bakehouse.firebaseapp.com",
+
+projectId: "virean-bakehouse",
+
+storageBucket: "virean-bakehouse.firebasestorage.app",
+
+messagingSenderId: "650279202977",
+
+appId: "1:650279202977:web:71bd1736ca7738fe9080e0"
+
+};
+
+
+
+
+
+const app =
+
+initializeApp(
+firebaseConfig
+);
+
+
+
+const db =
+
+getFirestore(
+app
+);
+
+
+
+window.db = db;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+window.updateDoc = updateDoc;
+window.collection = collection;
+
+
+</script>
 
 <script>
 
 
 let pendingProduct = null;
+window.editingIndex = -1;
 
 
-
-let products =
-
-JSON.parse(
-
-localStorage.getItem(
-"vireanProducts"
-)
-
-)
-
-||
-
-[];
+let products = [];
 
 
 
@@ -825,7 +899,7 @@ forceSave();
 
 
 
-function forceSave(){
+async function forceSave(){
 
 
 closeWarning();
@@ -837,33 +911,54 @@ let data = {
 
 
 name:
-pendingProduct.name,
+document
+.getElementById(
+"productName"
+).value,
 
 
 
 category:
-pendingProduct.category,
+document
+.getElementById(
+"productCategory"
+).value,
 
 
 
 price:
 Number(
-pendingProduct.price
+
+document
+.getElementById(
+"productPrice"
+)
+.value
 .replace(/\./g,'')
+
 )||0,
 
 
 
 cost:
 Number(
-pendingProduct.cost
+
+document
+.getElementById(
+"productCost"
+)
+.value
 .replace(/\./g,'')
+
 )||0,
 
 
 
 stock:
-pendingProduct.stock,
+document
+.getElementById(
+"productStock"
+).value,
 
 
 
@@ -872,11 +967,12 @@ image:
 document
 .getElementById(
 "previewImage"
-)
-.src
+).src
 
 
 };
+
+
 
 
 
@@ -888,9 +984,25 @@ window.editingIndex >= 0
 
 ){
 
+await
+
+updateDoc(
+
+doc(
+
+db,
+
+"products",
+
 products[
 window.editingIndex
-] = data;
+].id
+
+),
+
+data
+
+);
 
 
 
@@ -899,32 +1011,79 @@ window.editingIndex = -1;
 }
 else{
 
-products.push(
+
+await
+
+addDoc(
+
+collection(
+
+window.db,
+
+"products"
+
+),
+
 data
+
 );
+
 
 }
 
 
 
 
-saveToStorage();
 
-
-
-renderProducts();
-
-
+await renderProducts();
 
 closePopup();
 
+
 }
 
 
 
 
+async function renderProducts(){
 
-function renderProducts(){
+
+products = [];
+
+
+
+let snapshot =
+
+await
+
+getDocs(
+
+collection(
+
+window.db,
+
+"products"
+
+)
+
+);
+
+
+
+
+snapshot.forEach(item=>{
+
+products.push({
+
+id:item.id,
+
+...item.data()
+
+});
+
+});
+
+
 
 
 let html="";
@@ -985,19 +1144,36 @@ document
 .innerHTML =
 html;
 
+
 }
 
 
 
 
 
-function deleteProduct(index){
+async function deleteProduct(index){
 
-products.splice(index,1);
 
-saveToStorage();
+await
 
-renderProducts();
+deleteDoc(
+
+doc(
+
+db,
+
+"products",
+
+products[index].id
+
+)
+
+);
+
+
+
+await renderProducts();
+
 
 }
 
@@ -1215,7 +1391,11 @@ reader.readAsDataURL(file);
 
 
 
+window.onload = ()=>{
+
 renderProducts();
+
+};
 
 </script>
 </body>

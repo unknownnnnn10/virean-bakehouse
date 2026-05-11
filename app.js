@@ -112,7 +112,6 @@ function doLogin(){
 
     ){
 
-        alert("login cashier berhasil");
 
 
 window.location.href =
@@ -141,7 +140,7 @@ return;
 
     ){
 
-        alert("login owner berhasil");
+
 
 
 window.location.href =
